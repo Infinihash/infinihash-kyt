@@ -1,49 +1,43 @@
-# infinihash-kyt
+# infinihash-kyt (Python)
 
-Official Python SDK for the [Infinihash KYT API](https://kyt.infinihash.com/docs).
+Thin Python wrapper for the Infinihash KYT REST API. Screen wallets, manage
+cases, pull SAR drafts.
 
-> **Status: Alpha** — API is stable; SDK wrapper is actively being built. Full docs coming soon.
-
-## Installation
+## Install
 
 ```bash
 pip install infinihash-kyt
 ```
 
-## Quick Start
+## Use
 
 ```python
-from infinihash_kyt import InfinihashKYT
+from infinihash_kyt import KYT
 
-kyt = InfinihashKYT(api_key="your-key-here")
+client = KYT(api_key="ih_kyt_...")  # or set INFINIHASH_KYT_KEY in your env
 
-result = kyt.screen(
-    type="wallet",
-    value="0x722122dF12D4e14e13Ac3b6895a86e84145b6967",
+# Screen a wallet
+r = client.screen.address("0x722122dF12D4e14e13Ac3b6895a86e84145b6967", chain="ethereum")
+print(r["risk_score"], r["risk_level"])
+
+# Open a case
+case = client.cases.create(
+    address="0x722122dF12D4e14e13Ac3b6895a86e84145b6967",
     chain="ethereum",
+    notes="High-risk exposure detected from automated screen.",
 )
 
-print(result.risk_level)   # critical
-print(result.action)       # block
-print(result.narrative)
+# FinCEN-shaped JSON template (read-only - you still file with FinCEN yourself)
+export = client.cases.sar_export_fincen(case["id"])
 ```
 
-## Features
+## Errors
 
-- Wallet and transaction screening
-- SAR narrative generation
-- Case management
-- Webhook subscription helpers
-- Async support via `asyncio`
+All non-2xx responses raise `KYTError(status, message, body)`. The body field
+preserves the parsed JSON the server sent back, when available.
 
-## Documentation
+## Status
 
-Full API reference at [kyt.infinihash.com/docs](https://kyt.infinihash.com/docs).
-
-## Support
-
-Questions? [support@infinihash.com](mailto:support@infinihash.com)
-
-## License
-
-MIT © Infinihash LLC
+Alpha. The surface area mirrors what is documented at
+https://kyt.infinihash.com/docs. If you need an endpoint that is not in the
+client, file an issue.
