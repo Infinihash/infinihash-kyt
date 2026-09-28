@@ -6,8 +6,8 @@ errors surface as exceptions you can catch.
 
 Quick start:
 
-    from infinihash_kyt import KYT
-    client = KYT(api_key="ih_kyt_...")
+    from infinihash_kyt import Client  # alias of KYT
+    client = Client(api_key="ih_kyt_...")
     result = client.screen.address(
         "0x722122dF12D4e14e13Ac3b6895a86e84145b6967",
         chain="ethereum",
@@ -17,7 +17,7 @@ Quick start:
 Set the env var INFINIHASH_KYT_KEY if you prefer not to pass api_key explicitly.
 """
 
-from .client import KYT, KYTError
+from .client import Client, KYT, KYTError
 
-__all__ = ["KYT", "KYTError"]
-__version__ = "0.2.1"
+__all__ = ["Client", "KYT", "KYTError"]
+__version__ = "0.2.2"

@@ -1,4 +1,4 @@
-"""Infinihash KYT Python SDK — v0.2.1
+"""Infinihash KYT Python SDK — v0.2.2
 
 Thin requests wrapper around the Infinihash KYT API (https://kyt.infinihash.com).
 Covers the full public surface: screening, cases, SAR workflow, webhooks, API key
@@ -618,7 +618,7 @@ class KYT:
         headers = {
             "X-API-Key": self.api_key,
             "Accept": "application/json",
-            "User-Agent": "infinihash-kyt-python/0.2.0",
+            "User-Agent": "infinihash-kyt-python/0.2.2",
         }
         resp = self._session.request(
             method, url, json=json, params=params, headers=headers, timeout=self.timeout
@@ -645,3 +645,7 @@ class KYT:
     def health(self) -> dict:
         """Check API liveness. Returns {"status": "ok"} when the service is healthy."""
         return self._request("GET", "/api/v1/health")
+
+
+# `Client` is the name used throughout the docs quickstarts; `KYT` is the original name.
+Client = KYT
