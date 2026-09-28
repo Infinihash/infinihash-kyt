@@ -12,9 +12,9 @@ pip install infinihash-kyt
 ## Use
 
 ```python
-from infinihash_kyt import KYT
+from infinihash_kyt import Client  # `KYT` is an identical alias
 
-client = KYT(api_key="ih_kyt_...")  # or set INFINIHASH_KYT_KEY in your env
+client = Client(api_key="ih_kyt_...")  # or set INFINIHASH_KYT_KEY in your env
 
 # Screen a wallet
 r = client.screen.address("0x722122dF12D4e14e13Ac3b6895a86e84145b6967", chain="ethereum")
