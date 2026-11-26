@@ -8,7 +8,7 @@ Quick start
 -----------
     from infinihash_kyt import KYT
 
-    client = KYT(api_key="ih_kyt_...")          # or set INFINIHASH_KYT_KEY env var
+    client = KYT(api_key="kyt_...")          # or set INFINIHASH_KYT_KEY env var
 
     # Screen a wallet
     result = client.screen.address(
@@ -29,7 +29,7 @@ Quick start
 
 Auth
 ----
-Issue API keys at https://kyt.infinihash.com/kyt/admin (X-API-Key header).
+Issue API keys at https://kyt.infinihash.com/kyt/settings/api-keys (X-API-Key header).
 Pass api_key= to the constructor or export INFINIHASH_KYT_KEY in the environment.
 
 Errors
@@ -243,7 +243,7 @@ class Cases(_Resource):
 class Webhooks(_Resource):
     """Webhook endpoint management.
 
-    Webhooks deliver real-time push notifications to your server when
+    Webhooks deliver push notifications to your server when
     screening events occur. Payloads are signed with HMAC-SHA256 using
     your webhook secret — verify the X-KYT-Signature header on receipt.
     """
@@ -549,7 +549,7 @@ class KYT:
     """Infinihash KYT API client.
 
     Args:
-        api_key:  Your KYT API key (ih_kyt_...).
+        api_key:  Your KYT API key (kyt_...).
                   Falls back to INFINIHASH_KYT_KEY environment variable.
         base_url: Override the API base URL (useful for sandbox/staging).
         timeout:  Request timeout in seconds (default 30).
@@ -572,7 +572,7 @@ class KYT:
     -------
         from infinihash_kyt import KYT
 
-        client = KYT(api_key="ih_kyt_...")
+        client = KYT(api_key="kyt_...")
         result = client.screen.address("0x722122dF12D4e14e13Ac3b6895a86e84145b6967")
         if result["risk_level"] in ("high", "critical"):
             case = client.cases.create(address=result["value"])

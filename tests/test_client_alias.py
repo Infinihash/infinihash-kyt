@@ -9,7 +9,7 @@ def test_client_is_kyt_alias():
 
 
 def test_client_constructs():
-    c = Client(api_key="ih_kyt_test")
+    c = Client(api_key="kyt_test")
     assert c.base_url == "https://kyt.infinihash.com"
     assert hasattr(c.screen, "address")
 
